@@ -1,14 +1,14 @@
 <template lang="html">
-  <footer class="footer" v-show="todos.length">
-		<span class="todo-count">
+  <footer class="ui clearing" v-show="todos.length">
+		<h4 class="ui left floated header">
 			<strong v-text="remaining"></strong> {{pluralize('item', remaining)}} left
-		</span>
-		<ul class="filters">
-			<li><a href="#/all" :class="{selected: visibility == 'all'}">All</a></li>
-			<li><a href="#/active" :class="{selected: visibility == 'active'}">Active</a></li>
-			<li><a href="#/completed" :class="{selected: visibility == 'completed'}">Completed</a></li>
-		</ul>
-		<button class="clear-completed" @click="removeCompleted" v-show="todos.length > remaining">
+		</h4>
+    <div class="ui buttons">
+      <button class="ui button" :class="{active: visibility == 'all'}" @click="setVisibility('all')">All</button>
+      <button class="ui button" :class="{active: visibility == 'active'}" @click="setVisibility('active')">Active</button>
+      <button class="ui button" :class="{active: visibility == 'completed'}" @click="setVisibility('completed')">Completed</button>
+    </div>
+		<button class="ui negative basic button right floated" @click="removeCompleted" v-show="todos.length > remaining">
 			Clear completed
 		</button>
 	</footer>
@@ -16,17 +16,24 @@
 
 <script>
 export default {
-  data: () => ({
-    todos:[],
-    remaining:0,
-    visibility:null
-  }),
   methods: {
     removeCompleted() {
-
+      this.$store.dispatch('removeCompleted')
     },
-    pluralize() {
-
+    setVisibility(visibility) {
+      this.$store.dispatch('setVisibility',visibility)
+    },
+    pluralize: (word, count) => word + (count === 1 ? '' : 's')
+  },
+  computed: {
+    visibility() {
+      return this.$store.state.visibility
+    },
+    todos() {
+      return this.$store.state.todos
+    },
+    remaining() {
+      return this.$store.getters.activeTodoSize
     }
   }
 }

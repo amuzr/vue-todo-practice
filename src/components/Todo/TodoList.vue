@@ -1,8 +1,11 @@
 <template lang="html">
-  <section class="ui piled segment" v-show="todos.length">
-    <sui-checkbox v-model="allDone" label="Mark all as complete" />
+  <section v-show="todos.length">
+    <div class="ui checkbox all-check">
+      <input type="checkbox" v-model="allDone">
+      <i class="chevron down icon"/>
+    </div>
 		<div class="ui list todo-list">
-      <TodoItem v-for="todo in todos" v-bind:todo="todo" :key="todo.id"/>
+      <TodoItem v-for="todo in filteredTodos" v-bind:todo="todo" :key="todo.id"/>
     </div>
 	</section>
 </template>
@@ -14,26 +17,31 @@ export default {
   components: {
     TodoItem
   },
-  data: () => ({
-    allDone:false,
-    todos:[{
-      title:'tesawefawefawefat',
-      completed:false
-    },{
-      title:'tesawefawefawefat',
-      completed:false
-    },{
-      title:'tesawefawefawefat',
-      completed:false
-    }],
-    filteredTodos:[]
-  }),
-  methods: {
-
+  computed: {
+    allDone: {
+			get: function () {
+				return this.$store.getters.activeTodoSize === 0;
+			},
+			set: function (value) {
+				this.$store.dispatch('completeAll', value)
+			}
+		},
+    todos() {
+      return this.$store.state.todos;
+    },
+    filteredTodos() {
+      return this.$store.getters.filteredTodos;
+    }
   }
 }
 </script>
 
 <style lang="scss">
-.todo-list {}
+.ui.checkbox.all-check {
+  position:absolute;
+  display:block;
+  margin-top:-54px;
+  left:34px;
+  font-size:1.4rem;
+}
 </style>

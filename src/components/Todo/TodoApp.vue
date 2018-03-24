@@ -1,7 +1,9 @@
 <template lang="html">
-  <section v-cloak>
+  <section class="ui piled segment" v-cloak>
     <TodoHeader />
+    <div class="ui divider"></div>
     <TodoList />
+    <div class="ui divider"></div>
     <TodoFooter />
   </section>
 </template>

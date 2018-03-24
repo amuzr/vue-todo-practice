@@ -18,30 +18,23 @@
 <script>
 export default {
   props: ['todo'],
-  data: () => ({
-    editedTodo:{}
-  }),
+  computed: {
+    editedTodo() {
+      return this.$store.state.editedTodo
+    }
+  },
   methods: {
     editTodo(todo) {
-      this.beforeEditCache = todo.title;
-      this.editedTodo = todo;
+      this.$store.dispatch('editTodo',todo)
     },
-    removeTodo() {
-
+    removeTodo(todo) {
+      this.$store.dispatch('removeTodo',todo)
     },
     doneEdit(todo) {
-      if (!this.editedTodo) {
-				return;
-			}
-			this.editedTodo = null;
-			todo.title = todo.title.trim();
-			if (!todo.title) {
-				this.removeTodo(todo);
-			}
+      this.$store.dispatch('doneEdit',todo)
     },
     cancelEdit(todo) {
-      this.editedTodo = null;
-      todo.title = this.beforeEditCache;
+      this.$store.dispatch('cancelEdit',todo)
     }
   },
   directives: {
@@ -59,6 +52,11 @@ export default {
   width:100%;
   text-align:left;
 
+  &.completed .title {
+    color: #d9d9d9;
+    text-decoration: line-through;
+  }
+
   .content {
     border:0;
     margin-bottom:0;
@@ -67,7 +65,7 @@ export default {
 
     .title {
       word-break:break-all;
-      max-width:calc(100% - 30px);
+      width:calc(100% - 30px);
     }
   }
 
