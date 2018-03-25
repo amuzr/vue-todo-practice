@@ -4,8 +4,8 @@
 * ESLint
 * semantic-ui
 * social login (facebook, google)
-## installation
-using yarn
+## Installation
+using yarn:
 ```
 $ yarn install
 $ yarn serve
