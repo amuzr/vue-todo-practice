@@ -1,5 +1,3 @@
-import { rslError } from '../utils'
-
 const generateUser = (response) => {
   const profile = response.getBasicProfile()
   const authResponse = response.getAuthResponse(true)
@@ -24,22 +22,32 @@ const generateUser = (response) => {
   }
 }
 
-const load = (appId, cid, fn, err) => {
+const load = (appId, cid, fn) => {
   const js = document.createElement('script')
 
-  js.src = 'https://apis.google.com/js/platform.js'
-  js.id = 'gapi-client'
+  js.src = 'https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js'
+  js.id = 'napi-client'
 
   js.onload = () => {
-    window.gapi.load('auth2', () => {
-      if (!window.gapi.auth2.getAuthInstance()) {
-        window.gapi.auth2.init({
-          client_id: appId
-        })
-      }
+    let naverLogin = new naver.LoginWithNaverId({
+			clientId: appId,
+      callbackUrl: "http://localhost:8080/#/login",
+			isPopup: false,
+      callbackHandle: false,
+			loginButton: {color: "green", type: 3, height: 45}
+		})
 
-      window.gapi.auth2.getAuthInstance().attachClickHandler(cid, {}, fn, err)
-    })
+
+    naverLogin.getLoginStatus((status) => {
+      console.log('status :',status)
+			if (status) {
+				console.log('naverLogin.user :',naverLogin.user)
+				fn(naverLogin.user)
+			} else {
+        naverLogin.init();
+				console.log("callback 처리에 실패하였습니다.")
+			}
+		})
   }
 
   if (document.getElementsByTagName('script').length === 0) {

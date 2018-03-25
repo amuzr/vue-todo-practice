@@ -19,7 +19,6 @@ export default {
   methods: {
     handleSocialLoginInvokeSuccess (res) {
       const { callback, provider } = this
-      console.log(res)  // Uncomment to check response coming from provider in log
       const user = new SocialUser(provider)
       const socialUserData = sdk[this.provider].generateUser(res)
 
