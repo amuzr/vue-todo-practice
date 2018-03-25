@@ -1,6 +1,8 @@
 <template>
   <div is="sui-container">
-    <h1>Welcome, {{greeting}}.</h1>
+    <h1>Welcome, {{isLogin ? this.$store.state.user.socialUser.firstName : 'please login first'}}.</h1>
+    <router-link to="/login" v-if="!isLogin" tag="button" class="ui primary basic huge button">Go Login</router-link>
+    <router-link to="/todo" v-if="isLogin" tag="button" class="ui primary basic huge button">Go TodoApp</router-link>
   </div>
 </template>
 
@@ -8,8 +10,8 @@
 export default {
   name: 'home',
   computed: {
-    greeting() {
-      return this.$store.state.user.logged ? this.$store.state.user.socialUser.profile.firstName : 'please login first'
+    isLogin() {
+      return this.$store.state.user.logged
     }
   }
 }

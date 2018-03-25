@@ -5,7 +5,7 @@
       <i class="chevron down icon"/>
     </div>
 		<div class="ui list todo-list">
-      <TodoItem v-for="todo in filteredTodos" v-bind:todo="todo" :key="todo.id"/>
+      <TodoItem v-for="todo in filteredTodos" :todo="todo" :key="todo.id"/>
     </div>
 	</section>
 </template>
@@ -20,17 +20,17 @@ export default {
   computed: {
     allDone: {
 			get: function () {
-				return this.$store.getters.activeTodoSize === 0;
+				return this.$store.getters.activeTodoSize === 0
 			},
 			set: function (value) {
 				this.$store.dispatch('completeAll', value)
 			}
 		},
     todos() {
-      return this.$store.state.todo.todos;
+      return this.$store.state.todo.todos
     },
     filteredTodos() {
-      return this.$store.getters.filteredTodos;
+      return this.$store.getters.filteredTodos
     }
   }
 }

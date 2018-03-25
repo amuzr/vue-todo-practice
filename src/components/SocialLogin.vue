@@ -1,12 +1,12 @@
 <template lang="html">
-  <div v-bind:id="id" @click="handleLogin">
-    <button>Login with {{provider}}</button>
+  <div class="social-login-btn" v-bind:id="id" @click="handleLogin">
+    <slot name="button"/>
   </div>
 </template>
 
 <script>
 import sdk from '@/social/sdk'
-import SocialUser from '@/social/SocialUser'
+import SocialUser from '@/domain/SocialUser'
 
 export default {
   data: () => ({

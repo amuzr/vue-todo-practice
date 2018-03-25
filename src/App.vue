@@ -20,9 +20,14 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.dispatch('logout')
+      this.$store.dispatch('logout').then(() => {
+        this.$router.go('/')
+      })
     }
-  }
+  },
+  beforeCreate() {
+		this.$store.dispatch('checkLogin');
+	}
 }
 </script>
 

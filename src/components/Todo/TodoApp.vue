@@ -18,6 +18,11 @@ export default {
     TodoHeader,
     TodoList,
     TodoFooter
+  },
+  beforeUpdate() {
+    if(!this.$store.state.user.logged) {
+      this.$router.go('/')
+    }
   }
 }
 </script>
