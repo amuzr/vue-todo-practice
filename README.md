@@ -3,3 +3,9 @@
 * vuex
 * ESLint
 * semantic-ui
+* social login (facebook, google)
+## installation
+using yarn
+```
+$ yarn install
+$ yarn serve
