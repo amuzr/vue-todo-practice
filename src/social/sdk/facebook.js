@@ -93,8 +93,8 @@ const generateUser = (response) => ({
     profilePicURL: response.picture.data.url
   },
   token: {
-    accessToken: response.accessToken,
-    expiresAt: timestampFromNow(response.expiresIn)
+    accessToken: response.authResponse.accessToken,
+    expiresAt: timestampFromNow(response.authResponse.expiresIn)
   }
 })
 

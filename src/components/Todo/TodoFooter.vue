@@ -27,10 +27,10 @@ export default {
   },
   computed: {
     visibility() {
-      return this.$store.state.visibility
+      return this.$store.state.todo.visibility
     },
     todos() {
-      return this.$store.state.todos
+      return this.$store.state.todo.todos
     },
     remaining() {
       return this.$store.getters.activeTodoSize

@@ -1,8 +1,3 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-
-Vue.use(Vuex)
-
 const filters = {
   all: function (todos) {
 		return todos
@@ -15,14 +10,11 @@ const filters = {
 	}
 }
 
-export default new Vuex.Store({
+export default {
   state: {
     beforeEditCache:null,
     editedTodo:null,
-    todos:[{
-      title:'tesawefawefawefat',
-      completed:false
-    }],
+    todos:[],
     visibility:'all'
   },
   getters: {
@@ -118,4 +110,4 @@ export default new Vuex.Store({
       commit('COMPLETE_ALL',check)
     }
   }
-})
+}

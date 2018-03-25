@@ -27,7 +27,7 @@ export default {
 			}
 		},
     todos() {
-      return this.$store.state.todos;
+      return this.$store.state.todo.todos;
     },
     filteredTodos() {
       return this.$store.getters.filteredTodos;

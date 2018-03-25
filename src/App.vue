@@ -3,11 +3,28 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/todo">TodoApp</router-link> |
-      <router-link to="/login">Login</router-link>
+      <router-link to="/login" v-if="!isLogin">Login</router-link>
+      <a href="#" v-if="isLogin" @click="logout">Logout</a>
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'home',
+  computed: {
+    isLogin() {
+      return this.$store.state.user.logged
+    }
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch('logout')
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 #app {

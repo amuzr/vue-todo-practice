@@ -15,17 +15,18 @@ import SocialLogin from './SocialLogin.vue'
 export default {
   data: () => ({
     google:"google",
-    googleAppId:'758370462699-cnl3vhfoc9kg07jclniuumfpd5983vh2.apps.googleusercontent.com',
+    googleAppId:process.env.VUE_APP_GOOGLE_APP_ID,
     facebook:"facebook",
-    facebookAppId:"467011703341569"
+    facebookAppId:process.env.VUE_APP_FACEBOOK_APP_ID
   }),
   components: {
     SocialLogin
   },
   methods: {
-    handleSocialLogin : (user, err) => {
-      console.log(user)
-      console.log(err)
+    handleSocialLogin(user, err) {
+      this.$store.dispatch('login',user).then(() => {
+        this.$router.push('/')
+      })
     }
   }
 }

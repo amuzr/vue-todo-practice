@@ -20,7 +20,7 @@ export default {
   props: ['todo'],
   computed: {
     editedTodo() {
-      return this.$store.state.editedTodo
+      return this.$store.state.todo.editedTodo
     }
   },
   methods: {
